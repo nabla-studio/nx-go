@@ -8,6 +8,7 @@ import {
   Tree,
   updateProjectConfiguration,
 } from '@nx/devkit';
+import *  as merge from 'deepmerge'; 
 import { join } from 'path';
 import {
   addGoWorkDependency,
@@ -16,6 +17,7 @@ import {
   normalizeOptions,
 } from '../../utils';
 import { LibraryGeneratorSchema } from './schema';
+import { getTargetDefaults } from '../../utils/target-defaults';
 
 export const defaultTargets: { [targetName: string]: TargetConfiguration } = {
   test: {
@@ -36,12 +38,16 @@ export default async function libraryGenerator(
     'library',
     '@nx-go/nx-go:library'
   );
+  const executor = "@nx-go/nx-go:";
+
+  const mergedTargets = merge(defaultTargets, getTargetDefaults(tree, executor));
+
   const projectConfiguration: ProjectConfiguration = {
     root: options.projectRoot,
     projectType: options.projectType,
     sourceRoot: options.projectRoot,
     tags: options.parsedTags,
-    targets: defaultTargets,
+    targets: mergedTargets,
   };
 
   addProjectConfiguration(tree, options.name, projectConfiguration);
