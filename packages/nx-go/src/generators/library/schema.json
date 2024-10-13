@@ -34,6 +34,12 @@
       "description": "Skip formatting files.",
       "default": false,
       "x-priority": "internal"
+    },
+    "generatePackageJson": {
+      "type": "boolean",
+      "description": "Generate the package.json file for managing releasing through nx.",
+      "default": false,
+      "x-priority": "important"
     }
   },
   "required": ["name"]

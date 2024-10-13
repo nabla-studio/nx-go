@@ -52,10 +52,14 @@ export default async function libraryGenerator(
 
   addProjectConfiguration(tree, options.name, projectConfiguration);
 
-  generateFiles(tree, join(__dirname, 'files'), options.projectRoot, {
+  generateFiles(tree, join(__dirname, 'files/common'), options.projectRoot, {
     ...options,
     ...names(options.projectName),
   });
+
+  if (schema.generatePackageJson) {
+    await generateFiles(tree, join(__dirname, 'files/nx'), options.projectRoot, options);
+  }
 
   if (isGoWorkspace(tree)) {
     createGoMod(tree, options.projectRoot, options.projectRoot);

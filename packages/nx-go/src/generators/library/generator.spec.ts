@@ -52,11 +52,21 @@ describe('library generator', () => {
     expect(nxDevkit.updateProjectConfiguration).not.toHaveBeenCalled();
   });
 
-  it('should generate files', async () => {
+  it('should generate common files', async () => {
     await libraryGenerator(tree, options);
     expect(nxDevkit.generateFiles).toHaveBeenCalledWith(
       tree,
-      join(__dirname, './files'),
+      join(__dirname, './files/common'),
+      'libs/data-access',
+      expect.objectContaining({ ...normalizeOptions, className: 'DataAccess' })
+    );
+  });
+
+  it('should generate package file on nx', async () => {
+    await libraryGenerator(tree, options);
+    expect(nxDevkit.generateFiles).toHaveBeenCalledWith(
+      tree,
+      join(__dirname, './files/nx'),
       'libs/data-access',
       expect.objectContaining({ ...normalizeOptions, className: 'DataAccess' })
     );

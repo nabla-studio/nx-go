@@ -1,0 +1,4 @@
+{
+    "name": "<%= moduleName %>",
+    "version": "0.0.1"
+}
