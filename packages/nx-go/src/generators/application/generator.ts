@@ -64,7 +64,11 @@ export default async function applicationGenerator(
 
   addProjectConfiguration(tree, schema.name, projectConfiguration);
 
-  generateFiles(tree, join(__dirname, 'files'), options.projectRoot, options);
+  generateFiles(tree, join(__dirname, 'files/common'), options.projectRoot, options);
+
+  if (schema.generatePackageJson) {
+    await generateFiles(tree, join(__dirname, 'files/nx'), options.projectRoot, options);
+  }
 
   if (isGoWorkspace(tree)) {
     createGoMod(tree, options.projectRoot, options.projectRoot);

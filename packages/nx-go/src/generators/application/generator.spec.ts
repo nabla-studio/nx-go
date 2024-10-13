@@ -45,11 +45,21 @@ describe('application generator', () => {
     expect(nxDevkit.updateProjectConfiguration).not.toHaveBeenCalled();
   });
 
-  it('should generate files', async () => {
+  it('should generate common files', async () => {
     await applicationGenerator(tree, options);
     expect(nxDevkit.generateFiles).toHaveBeenCalledWith(
       tree,
-      join(__dirname, './files'),
+      join(__dirname, './files/common'),
+      'apps/my-api',
+      normalizeOptions
+    );
+  });
+
+  it('should generate package file for nx', async () => {
+    await applicationGenerator(tree, options);
+    expect(nxDevkit.generateFiles).toHaveBeenCalledWith(
+      tree,
+      join(__dirname, './files/nx'),
       'apps/my-api',
       normalizeOptions
     );
