@@ -1,10 +1,11 @@
-import { ExecutorContext } from '@nx/devkit';
+import { ExecutorContext, logger } from '@nx/devkit';
 import {
   buildStringFlagIfValid,
   executeCommand,
   extractProjectRoot,
 } from '../../utils';
 import { BuildExecutorSchema } from './schema';
+import { copyAssets } from '../../utils/copy-assets';
 
 /**
  * This executor builds an executable using the `go build` command.
@@ -16,6 +17,8 @@ export default async function runExecutor(
   options: BuildExecutorSchema,
   context: ExecutorContext
 ) {
+  await copyAssets(options.assets, options.outputPath);
+  
   return executeCommand(buildParams(options, context), {
     cwd: context.cwd,
     env: options.env,
@@ -26,10 +29,11 @@ const buildParams = (
   options: BuildExecutorSchema,
   context: ExecutorContext
 ): string[] => {
+  const completePath = `${options.outputPath}/${options.outputName || "main"}`;
   return [
     'build',
     '-o',
-    buildOutputPath(extractProjectRoot(context), options.outputPath),
+    buildOutputPath(extractProjectRoot(context), completePath),
     ...buildStringFlagIfValid('-buildmode', options.buildMode),
     ...(options.flags ?? []),
     options.main,

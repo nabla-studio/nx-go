@@ -17,6 +17,10 @@
       "type": "string",
       "description": "The output path of the resulting executable"
     },
+    "outputName": {
+      "type": "string",
+      "description": "The output name of the resulting executable"
+    },
     "buildMode": {
       "type": "string",
       "description": "The build mode to use"
@@ -34,6 +38,13 @@
         "type": "string"
       },
       "description": "Flags to pass to the go compiler"
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Assets to copy into the build directory"
     }
   },
   "required": ["main"]
