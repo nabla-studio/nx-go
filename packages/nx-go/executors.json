@@ -18,7 +18,7 @@
     "tidy": {
       "implementation": "./src/executors/tidy/executor",
       "schema": "./src/executors/tidy/schema.json",
-      "description": "Tidy the mod file of the application or library"
+      "description": "Tidy the mod file of the application or library or lambda"
     },
     "serve": {
       "implementation": "./src/executors/serve/executor",

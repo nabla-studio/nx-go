@@ -25,6 +25,13 @@
       "aliases": ["lib"],
       "x-type": "library"
     },
+    "lambda": {
+      "factory": "./src/generators/lambda/generator",
+      "schema": "./src/generators/lambda/schema.json",
+      "description": "Generate a Go application for a lambda",
+      "aliases": ["lambda"],
+      "x-type": "lambda"
+    },
     "preset": {
       "factory": "./src/generators/preset/generator",
       "schema": "./src/generators/preset/schema.json",
